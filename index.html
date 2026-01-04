@@ -1,72 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shivangi Vyas - Resume</title>
-  <style>
-    body { font-family: 'Helvetica Neue', Arial, sans-serif; margin: 0; padding: 0; background:#faf9f5; color:#1a1a1a; }
-    .container { max-width: 820px; margin: auto; background: #ffffff; padding: 3rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-    h1 { margin-bottom: 0; font-size: 2.4rem; letter-spacing: -1px; }
-    .subtitle { color: #3a5a40; font-weight: 500; margin-top: .3rem; }
-    hr { margin: 2rem 0; border: none; border-top: 1px solid #d8d8d8; }
-    h2 { margin-top: 2rem; font-size: 1.4rem; color:#3a5a40; border-left: 4px solid #a3b18a; padding-left: .6rem; }
-    ul { padding-left: 1.2rem; line-height: 1.6; }
-    h3 { margin-bottom: .2rem; font-size: 1.1rem; color:#2d2d2d; }
-    p, li { color:#333; font-size: 0.97rem; }
-    a { color: #588157; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shivangi Vyas | Senior Software Engineer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #020c1b;
+            --light-bg: #0a192f;
+            --navy-shadow: rgba(2, 12, 27, 0.7);
+            --text-main: #ccd6f6;
+            --text-dim: #8892b0;
+            --accent: #64ffda;
+            --accent-glow: rgba(100, 255, 218, 0.3);
+            --glass: rgba(17, 34, 64, 0.7);
+        }
+
+        * { transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1); box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #112240 0%, #020c1b 100%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10%;
+            gap: 50px;
+        }
+
+        .hero-content { flex: 2; }
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .profile-img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+            z-index: 2;
+        }
+
+        .img-glow {
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            background: var(--accent-glow);
+            filter: blur(40px);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        h1 { font-size: clamp(35px, 6vw, 70px); margin: 0; color: var(--text-main); line-height: 1.1; }
+        h2 { color: var(--accent); font-family: monospace; font-size: clamp(14px, 5vw, 18px); margin-bottom: 20px; }
+        
+        .hero-p { max-width: 540px; color: var(--text-dim); font-size: 1.1rem; margin-bottom: 40px; }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .card {
+            background: var(--glass);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(17, 34, 64, 0.9);
+            box-shadow: 0 20px 30px -15px var(--navy-shadow);
+            border-color: var(--accent);
+        }
+
+        .stat {
+            font-size: 2.5rem;
+            color: var(--accent);
+            display: block;
+            font-weight: 800;
+            margin-bottom: 5px;
+            font-family: monospace;
+        }
+
+        .skills-container { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; }
+
+        .skills-tag {
+            background: rgba(100, 255, 218, 0.05);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-family: monospace;
+        }
+
+        .experience-item {
+            border-left: 2px solid var(--light-bg);
+            padding-left: 30px;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .experience-item::after {
+            content: "";
+            position: absolute;
+            left: -7px; top: 0;
+            width: 12px; height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .btn {
+            padding: 16px 24px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 14px;
+            margin-right: 15px;
+            display: inline-block;
+        }
+
+        .btn:hover { background: var(--accent-glow); box-shadow: 0 0 15px var(--accent-glow); }
+
+        section { padding: 80px 0; }
+        .section-title { 
+            display: flex; align-items: center;
+            font-size: clamp(24px, 5vw, 32px); color: var(--text-main); margin-bottom: 40px; 
+        }
+        .section-title::after {
+            content: ""; display: block; height: 1px; width: 200px;
+            background: var(--light-bg); margin-left: 20px;
+        }
+
+        ul { list-style: none; padding: 0; }
+        li { position: relative; padding-left: 25px; margin-bottom: 15px; color: var(--text-dim); font-size: 1rem; }
+        li::before { content: "▹"; position: absolute; left: 0; color: var(--accent); }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column-reverse; text-align: center; padding-top: 100px; padding-bottom: 50px; }
+            .hero-content { align-items: center; display: flex; flex-direction: column; }
+            .section-title::after { width: 100px; }
+            .profile-img { width: 220px; height: 220px; }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Shivangi Vyas</h1>
-    <p class="subtitle">Software Engineer</p>
-    <p>Seattle, WA • +1 682 251 5882 • <a href="mailto:shivangivyas.278@gmail.com">shivangivyas.278@gmail.com</a><br>
-    LinkedIn: <a href="https://linkedin.com/in/vyas-shivangi">linkedin.com/in/vyas-shivangi</a></p>
-    <hr>
 
-    <h2>Summary</h2>
-    <p>Motivated and skilled Software Engineer with 5+ years of experience at Amazon and Goldman Sachs. Known for influencing cross-functional teams, leading system-wide redesigns, and delivering impactful, scalable products. Recognized for strategic thinking, technical depth, automation, and strong communication. Proven track record of building vision in ambiguous spaces and driving execution from the ground up.</p>
+<header>
+    <div class="hero-content">
+        <h2>Hi, my name is</h2>
+        <h1>Shivangi Vyas</h1>
+        <h1 style="color: var(--text-dim); font-size: clamp(25px, 5vw, 50px);">Building at $1B+ Scale.</h1>
+        <p class="hero-p">
+            I’m a <strong>Senior Software Engineer</strong> at <strong>Amazon</strong> specializing in scalable, multi-tenant platforms. I architect systems that drive hundreds of millions in business impact through technical leadership and rapid execution.
+        </p>
+        <div>
+            <a href="mailto:shivangivyas.278@gmail.com" class="btn">Get In Touch</a>
+            <a href="https://linkedin.com/in/vyas-shivangi" class="btn" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+        </div>
+    </div>
+    <div class="hero-image">
+        <div class="img-glow"></div>
+        <img src="profile-pic.jpeg" alt="Shivangi Vyas" class="profile-img">
+    </div>
+</header>
 
-    <h2>Technical Skills</h2>
-    <ul>
-      <li><b>Languages:</b> Python, C++, Java, JavaScript, TypeScript, C, SQL, KSQL, MySQL, Kotlin</li>
-      <li><b>Web Technologies:</b> HTML5, CSS, Django, Flask, React, Stencil, Katal, Node.js</li>
-      <li><b>Tools:</b> AWS Suite, Phantom, Splunk, PyCharm, MATLAB, MONS, InVision, Figma, Cline</li>
-      <li><b>Concepts:</b> Cybersecurity, OOP, Data Structures & Algorithms, DBMS, UX Design, System Architecture</li>
-    </ul>
+<div class="container">
+    <section id="impact">
+        <h3 class="section-title">High-Level Impact</h3>
+        <div class="impact-grid">
+            <div class="card">
+                <span class="stat">$454M+</span>
+                <p>Annual free cash flow generated via large-scale EC2 automation platforms.</p>
+            </div>
+            <div class="card">
+                <span class="stat">$1B+</span>
+                <p>Order-processing operations supported by microservices I've architected.</p>
+            </div>
+            <div class="card">
+                <span class="stat">80%</span>
+                <p>Reduction in API integration time-to-market via normalization strategies.</p>
+            </div>
+        </div>
+    </section>
 
-    <h2>Work Experience</h2>
-    <h3>Amazon — Software Development Engineer I (Promoted)</h3>
-    <p><i>Feb 2022 – Present</i></p>
-    <ul>
-      <li>Modernized the team's tech stack, leading system architecture redesign and roadmap definition, projecting a 50% reduction in OE and increased OPS scalability.</li>
-      <li>Pioneered digital vendor experience vision, initiating a new charter and leading design and automation tools projected to drive $232M annual GMS.</li>
-      <li>Designed backend system for product suppression notifications generating $43M OPS/quarter and scaling globally with minimal additional development.</li>
-      <li>Designed integration architecture for ML product recommendation models, improving customer experience and enrollment.</li>
-      <li>Owned frontend setup (CI/CD, auth, i18n, UX, accessibility), mentored engineers, and automated development workflows.</li>
-      <li>Developed large-scale extensible systems for marketing automation, generating $454M+ annual free cash flow (achieving 3-year projection in 2 years).</li>
-    </ul>
+    <section id="experience">
+        <h3 class="section-title">Career Path</h3>
+        
+        <div class="experience-item">
+            <h4 style="margin: 0; font-size: 1.4rem;">Software Development Engineer II <span style="color: var(--accent);">@ Amazon</span></h4>
+            <p style="font-family: monospace; font-size: 0.9rem; color: var(--text-dim); margin-top: 5px;">Feb 2022 — Present</p>
+            <ul>
+                <li><strong>Architectural Leadership:</strong> Reframed a legacy migration into a multi-tenant NAWS platform strategy, reducing projected operational overhead by 50% and supporting $1B+ in order-processing OPS.</li>
+                <li><strong>Global Scale:</strong> Led end-to-end implementation of a global notification system for 30+ marketplaces across region, architected to scale with only one week of incremental development for new regions.</li>
+                <li><strong>AI Innovation:</strong> Pioneered an AI-driven on-call agent to automate ticket triage, reducing team on-call burden by 25%.</li>
+                <li><strong>Product Strategy:</strong> Generated $232M in projected GMS by identifying vendor experience gaps and leading automated tooling design.</li>
+                <li><strong>Technical Ownership:</strong> Owned the complete frontend & backend stack for various projects and served as <strong>Code Review Bar Raiser</strong> and mentor to junior engineers.</li>
+            </ul>
+        </div>
 
-    <h3>Goldman Sachs — Software Engineer</h3>
-    <p><i>Feb 2021 – Feb 2022</i></p>
-    <ul>
-      <li>Automated cyber intel and threat triage systems using Phantom workflows and API integrations, reducing analysis time by 80% and increasing response efficiency by 50%.</li>
-    </ul>
+        <div class="experience-item">
+            <h4 style="margin: 0; font-size: 1.4rem;">Software Engineer <span style="color: var(--accent);">@ Goldman Sachs</span></h4>
+            <p style="font-family: monospace; font-size: 0.9rem; color: var(--text-dim); margin-top: 5px;">Feb 2021 — Feb 2022</p>
+            <ul>
+                <li><strong>Cybersecurity Automation:</strong> Automated cyber intel collection via Phantom workflows, resulting in an 80% reduction in analysis time and a 50% increase in response efficiency.</li>
+                <li><strong>Threat Mitigation:</strong> Integrated complex APIs to auto-close threat tickets and implemented global mitigations for internal and external threats.</li>
+            </ul>
+        </div>
+    </section>
 
-    <h2>Education</h2>
-    <p><b>Bachelor of Science in Computer Science</b><br>University of Texas at Arlington — Dec 2020</p>
+    <section id="technical">
+        <h3 class="section-title">Technical Toolkit</h3>
+        <div class="impact-grid">
+            <div class="card">
+                <h4>Languages & Backend</h4>
+                <div class="skills-container">
+                    <span class="skills-tag">Java</span> <span class="skills-tag">Kotlin</span> <span class="skills-tag">Python</span> 
+                    <span class="skills-tag">TypeScript</span> <span class="skills-tag">C++</span> <span class="skills-tag">SQL</span>
+                    <span class="skills-tag">AWS (Lambda, DynamoDB, SQS, SNS)</span>
+                </div>
+            </div>
+            <div class="card">
+                <h4>Frontend & Architecture</h4>
+                <div class="skills-container">
+                    <span class="skills-tag">React</span> <span class="skills-tag">Stencil</span> <span class="skills-tag">HTML/CSS</span> 
+                    <span class="skills-tag">Figma</span> <span class="skills-tag">Distributed Systems</span>
+                    <span class="skills-tag">Multi-Tenant Platforms</span> <span class="skills-tag">API Design</span>
+                </div>
+            </div>
+            <div class="card">
+                <h4>Education & Honors</h4>
+                <p style="font-size: 0.9rem; margin-bottom: 5px;"><strong>BS in Computer Science</strong></p>
+                <p style="color: var(--text-dim); font-size: 0.8rem; margin: 0;">UT Arlington | Dec 2020</p>
+                <hr style="border: 0; border-top: 1px solid var(--light-bg); margin: 15px 0;">
+                <ul style="font-size: 0.8rem;">
+                    <li>Innovation Excellence for CE Tech (Amazon)</li>
+                    <li>Nokia Outstanding CSE Professional Student</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</div>
 
-    <h2>Awards</h2>
-    <ul>
-      <li>Innovation Excellence for CE Tech (Amazon)</li>
-      <li>Nokia Outstanding CSE Professional Student</li>
-      <li>Honorable Mention — SCRF Competition</li>
-      <li>Programmer of the Year</li>
-      <li>Dean's List (Multiple Semesters)</li>
-    </ul>
-  </div>
+<footer style="text-align: center; padding: 60px 20px; color: var(--text-dim); font-family: monospace; font-size: 0.8rem;">
+    <p>Designed & Built by Shivangi Vyas © 2025</p>
+</footer>
+
 </body>
 </html>
-
