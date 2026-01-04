@@ -2,111 +2,12 @@
 function showSection(sectionId) {
     document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
     document.getElementById(sectionId + '-view').classList.add('active');
-
     document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
     document.getElementById('nav-' + sectionId).classList.add('active');
-    
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// --- ROCK PAPER SCISSORS ---
-function playRPS(playerChoice) {
-    const choices = ['rock', 'paper', 'scissors'];
-    const botChoice = choices[Math.floor(Math.random() * 3)];
-    const display = document.getElementById('rps-display');
-    const result = document.getElementById('rps-result');
-    const icons = { rock: '✊', paper: '✋', scissors: '✌️' };
-    
-    display.innerHTML = `You: ${icons[playerChoice]} vs Bot: ${icons[botChoice]}`;
-    
-    if (playerChoice === botChoice) {
-        result.innerText = "It's a Tie!";
-        result.style.color = "var(--text-dim)";
-    } else if (
-        (playerChoice === 'rock' && botChoice === 'scissors') ||
-        (playerChoice === 'paper' && botChoice === 'rock') ||
-        (playerChoice === 'scissors' && botChoice === 'paper')
-    ) {
-        result.innerText = "You Win! 🎉";
-        result.style.color = "var(--accent)";
-    } else {
-        result.innerText = "Bot Wins! 🤖";
-        result.style.color = "#ff00c1";
-    }
-}
-
-// --- ON-CALL SIMULATOR GAME ---
-let health = 100;
-let resolved = 0;
-let gameActive = false;
-
-const startBtn = document.getElementById('start-game-btn');
-const scoreBoard = document.getElementById('score-board');
-const gameMsg = document.getElementById('game-msg');
-const gameContainer = document.getElementById('game-container');
-
-if (startBtn) {
-    startBtn.addEventListener('click', () => {
-        if (gameActive) return;
-        gameActive = true;
-        health = 100;
-        resolved = 0;
-        startBtn.style.display = 'none';
-        gameMsg.innerText = "SEV-2 in progress! Click the bugs 🐛 to resolve!";
-        gameLoop();
-    });
-}
-
-function gameLoop() {
-    if (!gameActive) return;
-
-    // Create a bug element
-    const bug = document.createElement('div');
-    bug.className = 'bug';
-    bug.innerHTML = '🐛';
-    bug.style.left = Math.random() * (gameContainer.clientWidth - 40) + 'px';
-    bug.style.top = Math.random() * (gameContainer.clientHeight - 40) + 'px';
-    
-    // Bug click logic
-    bug.onclick = () => {
-        resolved++;
-        bug.remove();
-        updateScore();
-    };
-
-    gameContainer.appendChild(bug);
-
-    // If bug isn't clicked in 1.5 seconds, lose health
-    setTimeout(() => {
-        if (bug.parentElement) {
-            health -= 15;
-            bug.remove();
-            updateScore();
-            if (health <= 0) endGame();
-        }
-    }, 1500);
-
-    // Spawn next bug
-    if (gameActive) setTimeout(gameLoop, 800);
-}
-
-function updateScore() {
-    scoreBoard.innerText = `System Health: ${health}% | Bugs Resolved: ${resolved}`;
-    if (health < 50) scoreBoard.style.color = "#ff00c1";
-    else scoreBoard.style.color = "var(--accent)";
-}
-
-function endGame() {
-    gameActive = false;
-    startBtn.style.display = 'inline-block';
-    startBtn.innerText = 'Restart Shift';
-    gameMsg.innerText = `System Crashed! You resolved ${resolved} bugs before the SEV-1.`;
-    
-    // Remove any remaining bugs
-    document.querySelectorAll('.bug').forEach(b => b.remove());
-}
-
-// --- STAT COUNTER LOGIC ---
+// --- STAT COUNTERS ---
 const stats = document.querySelectorAll('.stat');
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -117,7 +18,10 @@ const observer = new IntersectionObserver((entries) => {
                 const speed = target / 50;
                 if (count < target) {
                     count += Math.ceil(speed);
-                    entry.target.innerText = target === 80 ? `${count}%` : (target === 1 ? `$${count}B+` : `$${count}M+`);
+                    // Match formatting for 80%, $1B+, and $454M+
+                    if (target === 80) entry.target.innerText = `${count}%`;
+                    else if (target === 1) entry.target.innerText = `$${count}B+`;
+                    else entry.target.innerText = `$${count}M+`;
                     setTimeout(updateCount, 40);
                 } else {
                     entry.target.innerText = target === 80 ? "80%" : (target === 1 ? "$1B+" : `$${target}M+`);
@@ -129,3 +33,132 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.5 });
 stats.forEach(s => observer.observe(s));
+
+// --- RPS GAME ---
+function playRPS(p) {
+    const choices = ['rock', 'paper', 'scissors'];
+    const b = choices[Math.floor(Math.random() * 3)];
+    const res = document.getElementById('rps-result');
+    document.getElementById('rps-display').innerText = `You: ${p} vs Bot: ${b}`;
+    if (p === b) res.innerText = "Tie!";
+    else if ((p === 'rock' && b === 'scissors') || (p === 'paper' && b === 'rock') || (p === 'scissors' && b === 'paper')) {
+        res.innerText = "Win! 🎉";
+    } else {
+        res.innerText = "Loss! 💀";
+    }
+}
+
+// --- TIC-TAC-TOE ---
+let board = ["", "", "", "", "", "", "", "", ""];
+function makeMove(i) {
+    if (board[i] === "") {
+        board[i] = "X"; 
+        document.getElementsByClassName('cell')[i].innerText = "X";
+        if (!checkWinner()) setTimeout(botMove, 500);
+    }
+}
+function botMove() {
+    let empty = board.map((v, i) => v === "" ? i : null).filter(v => v !== null);
+    if (empty.length) {
+        let m = empty[Math.floor(Math.random() * empty.length)];
+        board[m] = "O"; 
+        document.getElementsByClassName('cell')[m].innerText = "O";
+        checkWinner();
+    }
+}
+function checkWinner() {
+    const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+    for (let combo of wins) {
+        if (board[combo[0]] && board[combo[0]] === board[combo[1]] && board[combo[0]] === board[combo[2]]) {
+            document.getElementById('ttt-status').innerText = `${board[combo[0]]} Wins!`;
+            return true;
+        }
+    }
+    return false;
+}
+function resetTTT() {
+    board = ["", "", "", "", "", "", "", "", ""];
+    Array.from(document.getElementsByClassName('cell')).forEach(c => c.innerText = "");
+    document.getElementById('ttt-status').innerText = "Your turn (X)";
+}
+
+// --- SNAKE ---
+const cvs = document.getElementById("snakeGame");
+if (cvs) {
+    const ctx = cvs.getContext("2d");
+    let snk = [{x:10, y:10}], fd = {x:5, y:5}, dx=1, dy=0;
+    
+    // Add arrow key controls
+    window.addEventListener("keydown", e => {
+        if(e.key === "ArrowUp" && dy === 0) { dx=0; dy=-1; }
+        if(e.key === "ArrowDown" && dy === 0) { dx=0; dy=1; }
+        if(e.key === "ArrowLeft" && dx === 0) { dx=-1; dy=0; }
+        if(e.key === "ArrowRight" && dx === 0) { dx=1; dy=0; }
+    });
+
+    document.getElementById('start-snake').onclick = () => {
+        const game = setInterval(() => {
+            let h = {x: snk[0].x + dx, y: snk[0].y + dy};
+            
+            // Wall Collision
+            if (h.x<0 || h.x>19 || h.y<0 || h.y>19) {
+                clearInterval(game); alert("Game Over!"); return;
+            }
+
+            snk.unshift(h);
+            if(h.x === fd.x && h.y === fd.y) {
+                fd = {x: Math.floor(Math.random()*20), y: Math.floor(Math.random()*20)};
+                document.getElementById('snake-score').innerText = `Score: ${snk.length - 1}`;
+            } else {
+                snk.pop();
+            }
+
+            ctx.fillStyle = "#020c1b"; ctx.fillRect(0,0,300,300);
+            ctx.fillStyle = "#64ffda"; snk.forEach(s => ctx.fillRect(s.x*15, s.y*15, 14, 14));
+            ctx.fillStyle = "red"; ctx.fillRect(fd.x*15, fd.y*15, 14, 14);
+        }, 150);
+    };
+}
+
+// --- ON-CALL SIMULATOR ---
+let health = 100, bugs = 0;
+const startOnCall = document.getElementById('start-game-btn');
+if (startOnCall) {
+    startOnCall.onclick = () => {
+        startOnCall.style.display = 'none';
+        const gameInterval = setInterval(() => {
+            if (health <= 0) {
+                clearInterval(gameInterval);
+                alert(`System Crash! You resolved ${bugs} bugs.`);
+                location.reload(); // Reset game
+                return;
+            }
+
+            const bug = document.createElement('div');
+            bug.className = 'bug'; bug.innerHTML = '🐛';
+            bug.style.left = Math.random() * 80 + '%';
+            bug.style.top = Math.random() * 80 + '%';
+            bug.style.position = 'absolute';
+            bug.style.cursor = 'pointer';
+            bug.style.fontSize = '2rem';
+
+            bug.onclick = () => {
+                bugs++;
+                bug.remove();
+                document.getElementById('score-board').innerText = `System Health: ${health}% | Bugs Resolved: ${bugs}`;
+            };
+
+            document.getElementById('game-container').appendChild(bug);
+
+            // Bug causes damage if not clicked within 2 seconds
+            setTimeout(() => {
+                if (bug.parentElement) {
+                    health -= 10;
+                    bug.remove();
+                    document.getElementById('score-board').innerText = `System Health: ${health}% | Bugs Resolved: ${bugs}`;
+                }
+            }, 2000);
+
+        }, 1000);
+    };
+}

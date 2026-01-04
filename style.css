@@ -8,8 +8,8 @@
     --glass: rgba(17, 34, 64, 0.8);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; transition: all 0.2s ease; }
-body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-main); line-height: 1.6; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
 
 /* --- NAVIGATION --- */
 .navbar {
@@ -23,63 +23,77 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
 .nav-btn { 
     background: none; border: none; color: var(--text-main); 
     font-family: monospace; cursor: pointer; padding: 10px 15px; font-size: 1rem;
+    transition: all 0.2s ease;
 }
 .nav-btn.active { color: var(--accent); border-bottom: 2px solid var(--accent); }
 
 /* --- TAB CONTROL --- */
 .tab-content { display: none; padding-top: 70px; min-height: 100vh; }
 .tab-content.active { display: block; }
-
 .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
 
 /* --- HERO SECTION --- */
-.hero { display: flex; align-items: center; padding: 60px 10%; gap: 50px; min-height: 80vh; }
-.hero-content { flex: 2; }
+.hero { display: flex; align-items: center; padding: 60px 10%; gap: 50px; min-height: 80vh; flex-wrap: wrap; }
+.hero-content { flex: 2; min-width: 300px; }
 .sub-hero { color: var(--text-dim); font-size: clamp(20px, 4vw, 40px); margin-bottom: 20px; }
 .hero-p { max-width: 600px; margin-bottom: 30px; }
-.mono-text { color: var(--accent); font-family: monospace; font-size: 1rem; }
 .profile-img { width: 300px; height: 300px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); position: relative; z-index: 5; }
 
-/* --- IMPACT GRID --- */
+/* --- IMPACT GRID & CARDS --- */
 .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0; }
 .card { height: 350px; perspective: 1000px; cursor: pointer; }
-.card-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; }
+
+.card-inner { 
+    position: relative; width: 100%; height: 100%; 
+    transform-style: preserve-3d; 
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* FIXED TRANSITION */
+}
+
 .card.flipped .card-inner { transform: rotateY(180deg); }
+
 .card-front, .card-back { 
     position: absolute; width: 100%; height: 100%; backface-visibility: hidden; 
     padding: 30px; border-radius: 12px; border: 1px solid rgba(100, 255, 218, 0.1); background: var(--glass);
     display: flex; flex-direction: column; justify-content: center;
 }
-.card-back { transform: rotateY(180deg); background: var(--light-bg); justify-content: flex-start; overflow-y: auto; }
+
+.card-back { 
+    transform: rotateY(180deg); background: var(--light-bg); 
+    justify-content: flex-start; overflow-y: auto; 
+}
 .card-back h4 { color: var(--accent); margin-bottom: 10px; font-family: monospace; }
-.card-back ul { padding-left: 15px; font-size: 0.85rem; }
+.card-back ul { padding-left: 15px; font-size: 0.85rem; text-align: left; }
 .card-back li { margin-bottom: 8px; color: var(--text-dim); }
 
 .stat { font-size: 3rem; color: var(--accent); font-family: monospace; font-weight: bold; }
 .hint { font-size: 0.7rem; color: var(--accent); margin-top: 15px; opacity: 0.6; font-family: monospace; }
 
+/* --- GAMES GRID --- */
+.games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+.game-card { background: var(--light-bg); border: 1px solid var(--accent); padding: 30px; border-radius: 15px; text-align: center; }
+.game-display { font-size: 1.5rem; margin: 20px 0; background: var(--bg); padding: 15px; border-radius: 8px; border: 1px solid #112240; font-family: monospace; }
+
+/* --- GAME SPECIFICS --- */
+.ttt-grid { display: grid; grid-template-columns: repeat(3, 60px); justify-content: center; gap: 5px; margin: 15px auto; }
+.cell { width: 60px; height: 60px; border: 1px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; transition: background 0.2s; }
+.cell:hover { background: var(--accent-glow); }
+#snakeGame { background: #000; border: 1px solid var(--accent); display: block; margin: 0 auto 10px; width: 100%; max-width: 250px; }
+#game-container { position: relative; height: 250px; border: 1px dashed var(--accent); overflow: hidden; background: var(--bg); margin-top: 10px; }
+
 /* --- CAREER --- */
 .experience-item { border-left: 2px solid var(--light-bg); padding-left: 30px; margin-bottom: 50px; position: relative; }
 .experience-item::after { content: ""; position: absolute; left: -7px; top: 5px; width: 12px; height: 12px; background: var(--accent); border-radius: 50%; }
-.exp-title { margin-bottom: 5px; font-size: 1.4rem; }
-.mono-date { font-family: monospace; font-size: 0.9rem; color: var(--text-dim); margin-bottom: 15px; }
-.experience-item ul { padding-left: 18px; color: var(--text-dim); }
-.experience-item li { margin-bottom: 10px; }
-
-/* --- GAMES --- */
-.games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
-.game-card { background: var(--light-bg); border: 1px solid var(--accent); padding: 30px; border-radius: 15px; text-align: center; }
-.game-display { font-size: 1.5rem; margin: 20px 0; background: var(--bg); padding: 15px; border-radius: 8px; border: 1px solid #112240; }
 
 /* --- BUTTONS --- */
 .btn { 
     display: inline-block; padding: 12px 24px; border: 1px solid var(--accent); 
     color: var(--accent); text-decoration: none; border-radius: 4px; 
     font-family: monospace; background: transparent; cursor: pointer; margin-right: 10px;
+    transition: background 0.2s;
 }
 .btn:hover { background: var(--accent-glow); }
 
-/* --- GLITCH --- */
+/* --- GLITCH ANIMATION --- */
 .glitch { position: relative; font-size: clamp(30px, 5vw, 60px); font-weight: 800; }
 .glitch::before, .glitch::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); }
 .glitch::before { left: 2px; text-shadow: -2px 0 #ff00c1; clip: rect(44px, 450px, 56px, 0); animation: glitch-anim 5s infinite linear alternate-reverse; }
