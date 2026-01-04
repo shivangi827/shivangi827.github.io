@@ -1,22 +1,24 @@
 // --- SECTION SWITCHER ---
 function showSection(sectionId) {
-    // Hide all tabs
+    // 1. Hide all panels
     document.querySelectorAll('.tab-content').forEach(tab => {
         tab.classList.remove('active');
         tab.style.display = 'none';
     });
     
-    // Show the selected tab
+    // 2. Show the target panel
     const activeSection = document.getElementById(sectionId + '-view');
     if (activeSection) {
         activeSection.classList.add('active');
         activeSection.style.display = 'block';
     }
 
-    // Update nav button states
+    // 3. Update navbar buttons
     document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
     const activeBtn = document.getElementById('nav-' + sectionId);
-    if (activeBtn) activeBtn.classList.add('active');
+    if (activeBtn) {
+        activeBtn.classList.add('active');
+    }
     
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -129,7 +131,7 @@ if (cvs) {
 }
 
 // --- ON-CALL SIMULATOR ---
-let health = 100, bugs = 0;
+let health = 100, bugsCount = 0;
 const startOnCall = document.getElementById('start-game-btn');
 if (startOnCall) {
     startOnCall.onclick = () => {
@@ -137,25 +139,29 @@ if (startOnCall) {
         const gameInterval = setInterval(() => {
             if (health <= 0) {
                 clearInterval(gameInterval);
-                alert(`System Crash! You resolved ${bugs} bugs.`);
+                alert(`System Crash! You resolved ${bugsCount} bugs.`);
                 location.reload();
                 return;
             }
             const bug = document.createElement('div');
-            bug.className = 'bug'; bug.innerHTML = '🐛';
+            bug.className = 'bug'; 
+            bug.innerHTML = '🐛';
             bug.style.left = Math.random() * 80 + '%';
             bug.style.top = Math.random() * 80 + '%';
+            bug.style.position = 'absolute';
+            bug.style.cursor = 'pointer';
+
             bug.onclick = () => {
-                bugs++;
+                bugsCount++;
                 bug.remove();
-                document.getElementById('score-board').innerText = `System Health: ${health}% | Bugs Resolved: ${bugs}`;
+                document.getElementById('score-board').innerText = `System Health: ${health}% | Bugs Resolved: ${bugsCount}`;
             };
             document.getElementById('game-container').appendChild(bug);
             setTimeout(() => {
                 if (bug.parentElement) {
                     health -= 10;
                     bug.remove();
-                    document.getElementById('score-board').innerText = `System Health: ${health}% | Bugs Resolved: ${bugs}`;
+                    document.getElementById('score-board').innerText = `System Health: ${health}% | Bugs Resolved: ${bugsCount}`;
                 }
             }, 2000);
         }, 1000);
