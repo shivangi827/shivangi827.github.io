@@ -69,4 +69,38 @@ function playRPS(p) {
     } else {
         res.innerText = "Loss! 💀";
     }
+
+    // TIC-TAC-TOE
+    let board = ["", "", "", "", "", "", "", "", ""];
+    function makeMove(i) {
+        if (board[i] === "") {
+            board[i] = "X"; 
+            document.getElementsByClassName('cell')[i].innerText = "X";
+            checkWinner();
+            setTimeout(botMove, 500);
+        }
+    }
+    function botMove() {
+        let empty = board.map((v, i) => v === "" ? i : null).filter(v => v !== null);
+        if (empty.length) {
+            let m = empty[Math.floor(Math.random() * empty.length)];
+            board[m] = "O"; 
+            document.getElementsByClassName('cell')[m].innerText = "O";
+            checkWinner();
+        }
+    }
+    function checkWinner() {
+        const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+        for (let combo of wins) {
+            if (board[combo[0]] && board[combo[0]] === board[combo[1]] && board[combo[0]] === board[combo[2]]) {
+                document.getElementById('ttt-status').innerText = `${board[combo[0]]} Wins!`;
+                return true;
+            }
+        }
+    }
+    function resetTTT() {
+        board = ["", "", "", "", "", "", "", "", ""];
+        Array.from(document.getElementsByClassName('cell')).forEach(c => c.innerText = "");
+        document.getElementById('ttt-status').innerText = "Your turn (X)";
+    }
 }
