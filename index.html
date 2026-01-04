@@ -32,34 +32,90 @@
     <section id="impact">
         <h3 class="section-title">High-Level Impact</h3>
         <div class="impact-grid">
-            <div class="card">
-                <span class="stat" data-target="454">$0M+</span>
-                <p>Annual free cash flow generated via large-scale automation platforms.</p>
+            <div class="card flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <span class="stat" data-target="454">$0M+</span>
+                        <p>Annual free cash flow generated via large-scale automation platforms.</p>
+                        <small class="flip-hint">(Click to flip)</small>
+                    </div>
+                    <div class="card-back">
+                        <h4>Product Architecture</h4>
+                        <ul>
+                            <li>Led requirement research to ensure product-market fit.</li>
+                            <li>Designed end-to-end SPA with reverse-proxy architecture.</li>
+                            <li>Implemented OpenSearch indexing for data deduplication.</li>
+                            <li>Influenced API schemas and authored on-call SOP runbooks.</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="card">
-                <span class="stat" data-target="990">$0M+</span>
-                <p>Order-processing operations supported by microservices I've architected.</p>
+
+            <div class="card flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <span class="stat" data-target="1">$0B+</span>
+                        <p>Order-processing operations supported by the DCoDE vision.</p>
+                        <small class="flip-hint">(Click to flip)</small>
+                    </div>
+                    <div class="card-back">
+                        <h4>Strategic Leadership</h4>
+                        <ul>
+                            <li>Documented 100+ use cases to pivot team from migration to the <strong>DCoDE</strong> platform vision.</li>
+                            <li>Enabled team scaling from 6 to 16 engineers via architectural clarity.</li>
+                            <li>Led growth conversations with stakeholders at <strong>Meta, Xbox, and Apple</strong>.</li>
+                            <li>Rebranded the team and presented vision at an org onsite of 100+ people.</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="card">
-                <span class="stat" data-target="80">0%</span>
-                <p>Reduction in API integration time-to-market via normalization strategies.</p>
+
+            <div class="card flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <span class="stat" data-target="80">0%</span>
+                        <p>Reduction in API integration time via normalization strategies.</p>
+                        <small class="flip-hint">(Click to flip)</small>
+                    </div>
+                    <div class="card-back">
+                        <h4>Cloud Architecture & Design</h4>
+                        <ul>
+                            <li><strong>Stack:</strong> AWS Fargate, DynamoDB, S3, KMS, Secrets Manager.</li>
+                            <li>Brought integration lead time down from <strong>8 weeks to 1 week</strong>.</li>
+                            <li>Contributed to architectural initiatives driving <strong>$232M+ in OPS</strong>.</li>
+                            <li>Implemented secure data handling using <strong>KMS</strong> and <strong>Secrets Manager</strong> for sensitive vendor credentials.</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="experience">
         <h3 class="section-title">Career Path</h3>
+        
         <div class="experience-item">
             <h4 style="margin: 0; font-size: 1.4rem;">Software Development Engineer II <span style="color: var(--accent);">@ Amazon</span></h4>
             <p style="font-family: monospace; font-size: 0.9rem; color: var(--text-dim); margin-top: 5px;">Feb 2022 — Present</p>
             <ul>
-                <li><strong>Architectural Leadership:</strong> Reframed legacy migrations into multi-tenant NAWS platform strategies, reducing overhead by 50%.</li>
-                <li><strong>Global Scale:</strong> Implemented global notification systems for 30+ marketplaces with rapid regional scaling.</li>
-                <li><strong>AI Innovation:</strong> Pioneered an AI-driven on-call agent, reducing team burden by 25%.</li>
+                <li><strong>Architectural Leadership:</strong> Reframed a legacy migration into a multi-tenant NAWS platform strategy, reducing projected operational overhead by 50% and supporting $1B+ in order-processing OPS.</li>
+                <li><strong>Global Scale:</strong> Led end-to-end implementation of a global notification system for 30+ marketplaces, architected for rapid regional scaling.</li>
+                <li><strong>AI Innovation:</strong> Pioneered an AI-driven on-call agent to automate ticket triage, reducing team burden by 25%.</li>
+                <li><strong>Technical Ownership:</strong> Served as <strong>Code Review Bar Raiser</strong> and mentor to junior engineers.</li>
+            </ul>
+        </div>
+
+        <div class="experience-item">
+            <h4 style="margin: 0; font-size: 1.4rem;">Software Engineer <span style="color: var(--accent);">@ Goldman Sachs</span></h4>
+            <p style="font-family: monospace; font-size: 0.9rem; color: var(--text-dim); margin-top: 5px;">Feb 2021 — Feb 2022</p>
+            <ul>
+                <li><strong>Cybersecurity Automation:</strong> Automated cyber intel collection via Phantom workflows, resulting in an <strong>80% reduction</strong> in analysis time and a 50% increase in response efficiency.</li>
+                <li><strong>Threat Mitigation:</strong> Integrated complex APIs to auto-close threat tickets and implemented global mitigations for internal and external threats.</li>
+                <li><strong>System Reliability:</strong> Developed and maintained critical infrastructure for real-time threat detection and security alerting.</li>
             </ul>
         </div>
     </section>
-
+    
     <section id="interactive">
         <h3 class="section-title">On-Call Simulator</h3>
         <div id="game-container">
