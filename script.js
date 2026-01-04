@@ -77,8 +77,7 @@ function playRPS(p) {
         if (board[i] === "") {
             board[i] = "X"; 
             document.getElementsByClassName('cell')[i].innerText = "X";
-            checkWinner();
-            setTimeout(botMove, 500);
+            if (!checkWinner()) setTimeout(botMove, 500);
         }
     }
     function botMove() {
@@ -104,3 +103,74 @@ function playRPS(p) {
         Array.from(document.getElementsByClassName('cell')).forEach(c => c.innerText = "");
         document.getElementById('ttt-status').innerText = "Your turn (X)";
     }
+
+    // --- SNAKE ---
+const cvs = document.getElementById("snakeGame");
+if (cvs) {
+    const ctx = cvs.getContext("2d");
+    let snk = [{x:10, y:10}], fd = {x:5, y:5}, dx=1, dy=0;
+    
+    window.addEventListener("keydown", e => {
+        if(e.key === "ArrowUp" && dy === 0) { dx=0; dy=-1; }
+        if(e.key === "ArrowDown" && dy === 0) { dx=0; dy=1; }
+        if(e.key === "ArrowLeft" && dx === 0) { dx=-1; dy=0; }
+        if(e.key === "ArrowRight" && dx === 0) { dx=1; dy=0; }
+    });
+
+    document.getElementById('start-snake').onclick = () => {
+        const game = setInterval(() => {
+            let h = {x: snk[0].x + dx, y: snk[0].y + dy};
+            if (h.x<0 || h.x>19 || h.y<0 || h.y>19) {
+                clearInterval(game); alert("Game Over!"); return;
+            }
+            snk.unshift(h);
+            if(h.x === fd.x && h.y === fd.y) {
+                fd = {x: Math.floor(Math.random()*20), y: Math.floor(Math.random()*20)};
+                document.getElementById('snake-score').innerText = `Score: ${snk.length - 1}`;
+            } else {
+                snk.pop();
+            }
+            ctx.fillStyle = "#020c1b"; ctx.fillRect(0,0,300,300);
+            ctx.fillStyle = "#64ffda"; snk.forEach(s => ctx.fillRect(s.x*15, s.y*15, 14, 14));
+            ctx.fillStyle = "red"; ctx.fillRect(fd.x*15, fd.y*15, 14, 14);
+        }, 150);
+    };
+}
+
+// --- ON-CALL SIMULATOR ---
+let health = 100, bugsCount = 0;
+const startOnCall = document.getElementById('start-game-btn');
+if (startOnCall) {
+    startOnCall.onclick = () => {
+        startOnCall.style.display = 'none';
+        const gameInterval = setInterval(() => {
+            if (health <= 0) {
+                clearInterval(gameInterval);
+                alert(`System Crash! You resolved ${bugsCount} bugs.`);
+                location.reload();
+                return;
+            }
+            const bug = document.createElement('div');
+            bug.className = 'bug'; 
+            bug.innerHTML = '🐛';
+            bug.style.left = Math.random() * 80 + '%';
+            bug.style.top = Math.random() * 80 + '%';
+            bug.style.position = 'absolute';
+            bug.style.cursor = 'pointer';
+
+            bug.onclick = () => {
+                bugsCount++;
+                bug.remove();
+                document.getElementById('score-board').innerText = `System Health: ${health}% | Bugs Resolved: ${bugsCount}`;
+            };
+            document.getElementById('game-container').appendChild(bug);
+            setTimeout(() => {
+                if (bug.parentElement) {
+                    health -= 10;
+                    bug.remove();
+                    document.getElementById('score-board').innerText = `System Health: ${health}% | Bugs Resolved: ${bugsCount}`;
+                }
+            }, 2000);
+        }, 1000);
+    };
+}
