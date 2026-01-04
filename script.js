@@ -77,7 +77,8 @@ function playRPS(p) {
         if (board[i] === "") {
             board[i] = "X"; 
             document.getElementsByClassName('cell')[i].innerText = "X";
-            if (!checkWinner()) setTimeout(botMove, 500);
+            result = checkWinner()
+            result ? resetTTT() : setTimeout(botMove, 500);
         }
     }
     function botMove() {
