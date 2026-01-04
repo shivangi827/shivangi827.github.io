@@ -1,11 +1,19 @@
 // --- SECTION SWITCHER ---
 function showSection(sectionId) {
-    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-    document.getElementById(sectionId + '-view').classList.add('active');
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+        tab.style.display = 'none'; // Explicitly hide for mobile
+    });
+    
+    const activeSection = document.getElementById(sectionId + '-view');
+    activeSection.classList.add('active');
+    activeSection.style.display = 'block'; // Explicitly show for mobile
+
     document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
     document.getElementById('nav-' + sectionId).classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}✌️
+    
+    window.scrollTo({ top: 0, behavior: 'instant' }); 
+}
 
 // --- STAT COUNTERS ---
 const stats = document.querySelectorAll('.stat');
@@ -18,7 +26,6 @@ const observer = new IntersectionObserver((entries) => {
                 const speed = target / 50;
                 if (count < target) {
                     count += Math.ceil(speed);
-                    // Match formatting for 80%, $1B+, and $454M+
                     if (target === 80) entry.target.innerText = `${count}%`;
                     else if (target === 1) entry.target.innerText = `$${count}B+`;
                     else entry.target.innerText = `$${count}M+`;
@@ -88,7 +95,6 @@ if (cvs) {
     const ctx = cvs.getContext("2d");
     let snk = [{x:10, y:10}], fd = {x:5, y:5}, dx=1, dy=0;
     
-    // Add arrow key controls
     window.addEventListener("keydown", e => {
         if(e.key === "ArrowUp" && dy === 0) { dx=0; dy=-1; }
         if(e.key === "ArrowDown" && dy === 0) { dx=0; dy=1; }
@@ -99,12 +105,9 @@ if (cvs) {
     document.getElementById('start-snake').onclick = () => {
         const game = setInterval(() => {
             let h = {x: snk[0].x + dx, y: snk[0].y + dy};
-            
-            // Wall Collision
             if (h.x<0 || h.x>19 || h.y<0 || h.y>19) {
                 clearInterval(game); alert("Game Over!"); return;
             }
-
             snk.unshift(h);
             if(h.x === fd.x && h.y === fd.y) {
                 fd = {x: Math.floor(Math.random()*20), y: Math.floor(Math.random()*20)};
@@ -112,7 +115,6 @@ if (cvs) {
             } else {
                 snk.pop();
             }
-
             ctx.fillStyle = "#020c1b"; ctx.fillRect(0,0,300,300);
             ctx.fillStyle = "#64ffda"; snk.forEach(s => ctx.fillRect(s.x*15, s.y*15, 14, 14));
             ctx.fillStyle = "red"; ctx.fillRect(fd.x*15, fd.y*15, 14, 14);
@@ -130,27 +132,20 @@ if (startOnCall) {
             if (health <= 0) {
                 clearInterval(gameInterval);
                 alert(`System Crash! You resolved ${bugs} bugs.`);
-                location.reload(); // Reset game
+                location.reload();
                 return;
             }
-
             const bug = document.createElement('div');
             bug.className = 'bug'; bug.innerHTML = '🐛';
             bug.style.left = Math.random() * 80 + '%';
             bug.style.top = Math.random() * 80 + '%';
             bug.style.position = 'absolute';
-            bug.style.cursor = 'pointer';
-            bug.style.fontSize = '2rem';
-
             bug.onclick = () => {
                 bugs++;
                 bug.remove();
                 document.getElementById('score-board').innerText = `System Health: ${health}% | Bugs Resolved: ${bugs}`;
             };
-
             document.getElementById('game-container').appendChild(bug);
-
-            // Bug causes damage if not clicked within 2 seconds
             setTimeout(() => {
                 if (bug.parentElement) {
                     health -= 10;
@@ -158,7 +153,6 @@ if (startOnCall) {
                     document.getElementById('score-board').innerText = `System Health: ${health}% | Bugs Resolved: ${bugs}`;
                 }
             }, 2000);
-
         }, 1000);
     };
 }

@@ -4,7 +4,43 @@
     --text-main: #ccd6f6;
     --text-dim: #8892b0;
     --accent: #64ffda;
-    --accent-glow: rgba(100, 255, 218, 0.2);
+    --accent-glow: rgba(100, 255, 218, 0.2);/* Update your tab-content section with these specific values */
+.tab-content { 
+    display: none; 
+    padding-top: 70px; 
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    z-index: 1; /* Default background layer */
+}
+
+.tab-content.active { 
+    display: block; 
+    z-index: 10; /* Bring active layer to front so buttons work */
+}
+
+.navbar {
+    z-index: 10000; /* Always stay on top of active content */
+}
+
+/* Mobile Responsiveness for Games */
+@media (max-width: 768px) {
+    .hero {
+        padding: 40px 5%;
+        flex-direction: column-reverse; /* Ensure content stacks correctly */
+        text-align: center;
+    }
+    .hero-content {
+        min-width: 100%;
+    }
+    .games-grid {
+        grid-template-columns: 1fr; /* Single column on phones */
+    }
+    .profile-img {
+        width: 200px;
+        height: 200px;
+    }
+}
     --glass: rgba(17, 34, 64, 0.8);
 }
 
@@ -104,3 +140,41 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
 .section-title { font-size: 2rem; margin: 40px 0; display: flex; align-items: center; }
 .section-title::after { content: ""; height: 1px; width: 150px; background: var(--light-bg); margin-left: 20px; }
 .footer { text-align: center; padding: 40px; color: var(--text-dim); font-family: monospace; font-size: 0.8rem; border-top: 1px solid var(--light-bg); }
+
+/* Update your tab-content section with these specific values */
+.tab-content { 
+    display: none; 
+    padding-top: 70px; 
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    z-index: 1; /* Default background layer */
+}
+
+.tab-content.active { 
+    display: block; 
+    z-index: 10; /* Bring active layer to front so buttons work */
+}
+
+.navbar {
+    z-index: 10000; /* Always stay on top of active content */
+}
+
+/* Mobile Responsiveness for Games */
+@media (max-width: 768px) {
+    .hero {
+        padding: 40px 5%;
+        flex-direction: column-reverse; /* Ensure content stacks correctly */
+        text-align: center;
+    }
+    .hero-content {
+        min-width: 100%;
+    }
+    .games-grid {
+        grid-template-columns: 1fr; /* Single column on phones */
+    }
+    .profile-img {
+        width: 200px;
+        height: 200px;
+    }
+}
