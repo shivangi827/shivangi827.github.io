@@ -5,183 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shivangi Vyas | Senior Software Engineer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --bg: #020c1b;
-            --light-bg: #0a192f;
-            --navy-shadow: rgba(2, 12, 27, 0.7);
-            --text-main: #ccd6f6;
-            --text-dim: #8892b0;
-            --accent: #64ffda;
-            --accent-glow: rgba(100, 255, 218, 0.3);
-            --glass: rgba(17, 34, 64, 0.7);
-        }
-
-        * { transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1); box-sizing: border-box; }
-
-        body {
-            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, #112240 0%, #020c1b 100%);
-            z-index: -1;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        header {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 10%;
-            gap: 50px;
-        }
-
-        .hero-content { flex: 2; }
-        .hero-image {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            position: relative;
-        }
-
-        .profile-img {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--accent);
-            box-shadow: 0 0 20px var(--accent-glow);
-            z-index: 2;
-        }
-
-        .img-glow {
-            position: absolute;
-            width: 320px;
-            height: 320px;
-            background: var(--accent-glow);
-            filter: blur(40px);
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        h1 { font-size: clamp(35px, 6vw, 70px); margin: 0; color: var(--text-main); line-height: 1.1; }
-        h2 { color: var(--accent); font-family: monospace; font-size: clamp(14px, 5vw, 18px); margin-bottom: 20px; }
-        
-        .hero-p { max-width: 540px; color: var(--text-dim); font-size: 1.1rem; margin-bottom: 40px; }
-
-        .impact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin: 50px 0;
-        }
-
-        .card {
-            background: var(--glass);
-            padding: 30px;
-            border-radius: 12px;
-            border: 1px solid rgba(100, 255, 218, 0.1);
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-            height: 100%;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            background: rgba(17, 34, 64, 0.9);
-            box-shadow: 0 20px 30px -15px var(--navy-shadow);
-            border-color: var(--accent);
-        }
-
-        .stat {
-            font-size: 2.5rem;
-            color: var(--accent);
-            display: block;
-            font-weight: 800;
-            margin-bottom: 5px;
-            font-family: monospace;
-        }
-
-        .skills-container { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; }
-
-        .skills-tag {
-            background: rgba(100, 255, 218, 0.05);
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-family: monospace;
-        }
-
-        .experience-item {
-            border-left: 2px solid var(--light-bg);
-            padding-left: 30px;
-            margin-bottom: 60px;
-            position: relative;
-        }
-
-        .experience-item::after {
-            content: "";
-            position: absolute;
-            left: -7px; top: 0;
-            width: 12px; height: 12px;
-            background: var(--accent);
-            border-radius: 50%;
-        }
-
-        .btn {
-            padding: 16px 24px;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            text-decoration: none;
-            border-radius: 4px;
-            font-family: monospace;
-            font-size: 14px;
-            margin-right: 15px;
-            display: inline-block;
-        }
-
-        .btn:hover { background: var(--accent-glow); box-shadow: 0 0 15px var(--accent-glow); }
-
-        section { padding: 80px 0; }
-        .section-title { 
-            display: flex; align-items: center;
-            font-size: clamp(24px, 5vw, 32px); color: var(--text-main); margin-bottom: 40px; 
-        }
-        .section-title::after {
-            content: ""; display: block; height: 1px; width: 200px;
-            background: var(--light-bg); margin-left: 20px;
-        }
-
-        ul { list-style: none; padding: 0; }
-        li { position: relative; padding-left: 25px; margin-bottom: 15px; color: var(--text-dim); font-size: 1rem; }
-        li::before { content: "▹"; position: absolute; left: 0; color: var(--accent); }
-
-        @media (max-width: 768px) {
-            header { flex-direction: column-reverse; text-align: center; padding-top: 100px; padding-bottom: 50px; }
-            .hero-content { align-items: center; display: flex; flex-direction: column; }
-            .section-title::after { width: 100px; }
-            .profile-img { width: 220px; height: 220px; }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -191,7 +15,7 @@
         <h1>Shivangi Vyas</h1>
         <h1 style="color: var(--text-dim); font-size: clamp(25px, 5vw, 50px);">Building at $1B+ Scale.</h1>
         <p class="hero-p">
-            I’m a <strong>Senior Software Engineer</strong> at <strong>Amazon</strong> specializing in scalable, multi-tenant platforms. I architect systems that drive hundreds of millions in business impact through technical leadership and rapid execution.
+            I’m a <strong>Software Engineer</strong> at <strong>Amazon</strong> specializing in scalable, multi-tenant platforms. I architect systems that drive hundreds of millions in business impact through technical leadership and rapid execution.
         </p>
         <div>
             <a href="mailto:shivangivyas.278@gmail.com" class="btn">Get In Touch</a>
@@ -209,15 +33,15 @@
         <h3 class="section-title">High-Level Impact</h3>
         <div class="impact-grid">
             <div class="card">
-                <span class="stat">$454M+</span>
-                <p>Annual free cash flow generated via large-scale EC2 automation platforms.</p>
+                <span class="stat" data-target="454">$0M+</span>
+                <p>Annual free cash flow generated via large-scale marketing automation and self service platforms.</p>
             </div>
             <div class="card">
-                <span class="stat">$1B+</span>
+                <span class="stat" data-target="990">$0M+</span>
                 <p>Order-processing operations supported by microservices I've architected.</p>
             </div>
             <div class="card">
-                <span class="stat">80%</span>
+                <span class="stat" data-target="80">0%</span>
                 <p>Reduction in API integration time-to-market via normalization strategies.</p>
             </div>
         </div>
@@ -225,7 +49,6 @@
 
     <section id="experience">
         <h3 class="section-title">Career Path</h3>
-        
         <div class="experience-item">
             <h4 style="margin: 0; font-size: 1.4rem;">Software Development Engineer II <span style="color: var(--accent);">@ Amazon</span></h4>
             <p style="font-family: monospace; font-size: 0.9rem; color: var(--text-dim); margin-top: 5px;">Feb 2022 — Present</p>
@@ -248,42 +71,20 @@
         </div>
     </section>
 
-    <section id="technical">
-        <h3 class="section-title">Technical Toolkit</h3>
-        <div class="impact-grid">
-            <div class="card">
-                <h4>Languages & Backend</h4>
-                <div class="skills-container">
-                    <span class="skills-tag">Java</span> <span class="skills-tag">Kotlin</span> <span class="skills-tag">Python</span> 
-                    <span class="skills-tag">TypeScript</span> <span class="skills-tag">C++</span> <span class="skills-tag">SQL</span>
-                    <span class="skills-tag">AWS (Lambda, DynamoDB, SQS, SNS)</span>
-                </div>
-            </div>
-            <div class="card">
-                <h4>Frontend & Architecture</h4>
-                <div class="skills-container">
-                    <span class="skills-tag">React</span> <span class="skills-tag">Stencil</span> <span class="skills-tag">HTML/CSS</span> 
-                    <span class="skills-tag">Figma</span> <span class="skills-tag">Distributed Systems</span>
-                    <span class="skills-tag">Multi-Tenant Platforms</span> <span class="skills-tag">API Design</span>
-                </div>
-            </div>
-            <div class="card">
-                <h4>Education & Honors</h4>
-                <p style="font-size: 0.9rem; margin-bottom: 5px;"><strong>BS in Computer Science</strong></p>
-                <p style="color: var(--text-dim); font-size: 0.8rem; margin: 0;">UT Arlington | Dec 2020</p>
-                <hr style="border: 0; border-top: 1px solid var(--light-bg); margin: 15px 0;">
-                <ul style="font-size: 0.8rem;">
-                    <li>Innovation Excellence for CE Tech (Amazon)</li>
-                    <li>Nokia Outstanding CSE Professional Student</li>
-                </ul>
-            </div>
+    <section id="interactive">
+        <h3 class="section-title">On-Call Simulator</h3>
+        <div id="game-container">
+            <div id="score-board">System Health: 100% | Bugs Resolved: 0</div>
+            <button id="start-game-btn" class="btn">Start On-Call Shift</button>
+            <p id="game-msg">A SEV-2 has occurred! Squash the bugs before the system crashes.</p>
         </div>
     </section>
 </div>
 
 <footer style="text-align: center; padding: 60px 20px; color: var(--text-dim); font-family: monospace; font-size: 0.8rem;">
-    <p>Designed & Built by Shivangi Vyas © 2025</p>
+    <p>Designed & Built by Shivangi Vyas © 2026</p>
 </footer>
 
+<script src="script.js"></script>
 </body>
 </html>
