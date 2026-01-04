@@ -1,4 +1,112 @@
-// 1. Counter Animation
+// --- SECTION SWITCHER ---
+function showSection(sectionId) {
+    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+    document.getElementById(sectionId + '-view').classList.add('active');
+
+    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById('nav-' + sectionId).classList.add('active');
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// --- ROCK PAPER SCISSORS ---
+function playRPS(playerChoice) {
+    const choices = ['rock', 'paper', 'scissors'];
+    const botChoice = choices[Math.floor(Math.random() * 3)];
+    const display = document.getElementById('rps-display');
+    const result = document.getElementById('rps-result');
+    const icons = { rock: '✊', paper: '✋', scissors: '✌️' };
+    
+    display.innerHTML = `You: ${icons[playerChoice]} vs Bot: ${icons[botChoice]}`;
+    
+    if (playerChoice === botChoice) {
+        result.innerText = "It's a Tie!";
+        result.style.color = "var(--text-dim)";
+    } else if (
+        (playerChoice === 'rock' && botChoice === 'scissors') ||
+        (playerChoice === 'paper' && botChoice === 'rock') ||
+        (playerChoice === 'scissors' && botChoice === 'paper')
+    ) {
+        result.innerText = "You Win! 🎉";
+        result.style.color = "var(--accent)";
+    } else {
+        result.innerText = "Bot Wins! 🤖";
+        result.style.color = "#ff00c1";
+    }
+}
+
+// --- ON-CALL SIMULATOR GAME ---
+let health = 100;
+let resolved = 0;
+let gameActive = false;
+
+const startBtn = document.getElementById('start-game-btn');
+const scoreBoard = document.getElementById('score-board');
+const gameMsg = document.getElementById('game-msg');
+const gameContainer = document.getElementById('game-container');
+
+if (startBtn) {
+    startBtn.addEventListener('click', () => {
+        if (gameActive) return;
+        gameActive = true;
+        health = 100;
+        resolved = 0;
+        startBtn.style.display = 'none';
+        gameMsg.innerText = "SEV-2 in progress! Click the bugs 🐛 to resolve!";
+        gameLoop();
+    });
+}
+
+function gameLoop() {
+    if (!gameActive) return;
+
+    // Create a bug element
+    const bug = document.createElement('div');
+    bug.className = 'bug';
+    bug.innerHTML = '🐛';
+    bug.style.left = Math.random() * (gameContainer.clientWidth - 40) + 'px';
+    bug.style.top = Math.random() * (gameContainer.clientHeight - 40) + 'px';
+    
+    // Bug click logic
+    bug.onclick = () => {
+        resolved++;
+        bug.remove();
+        updateScore();
+    };
+
+    gameContainer.appendChild(bug);
+
+    // If bug isn't clicked in 1.5 seconds, lose health
+    setTimeout(() => {
+        if (bug.parentElement) {
+            health -= 15;
+            bug.remove();
+            updateScore();
+            if (health <= 0) endGame();
+        }
+    }, 1500);
+
+    // Spawn next bug
+    if (gameActive) setTimeout(gameLoop, 800);
+}
+
+function updateScore() {
+    scoreBoard.innerText = `System Health: ${health}% | Bugs Resolved: ${resolved}`;
+    if (health < 50) scoreBoard.style.color = "#ff00c1";
+    else scoreBoard.style.color = "var(--accent)";
+}
+
+function endGame() {
+    gameActive = false;
+    startBtn.style.display = 'inline-block';
+    startBtn.innerText = 'Restart Shift';
+    gameMsg.innerText = `System Crashed! You resolved ${resolved} bugs before the SEV-1.`;
+    
+    // Remove any remaining bugs
+    document.querySelectorAll('.bug').forEach(b => b.remove());
+}
+
+// --- STAT COUNTER LOGIC ---
 const stats = document.querySelectorAll('.stat');
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -9,14 +117,10 @@ const observer = new IntersectionObserver((entries) => {
                 const speed = target / 50;
                 if (count < target) {
                     count += Math.ceil(speed);
-                    if (target === 1) { // Special case for $1B
-                        entry.target.innerText = `$${count}B+`;
-                    } else {
-                        entry.target.innerText = entry.target.innerText.includes('$') ? `$${count}M+` : `${count}%`;
-                    }
+                    entry.target.innerText = target === 80 ? `${count}%` : (target === 1 ? `$${count}B+` : `$${count}M+`);
                     setTimeout(updateCount, 40);
                 } else {
-                    entry.target.innerText = target === 1 ? "$1B+" : (target === 80 ? "80%" : `$${target}M+`);
+                    entry.target.innerText = target === 80 ? "80%" : (target === 1 ? "$1B+" : `$${target}M+`);
                 }
             };
             updateCount();
@@ -25,32 +129,3 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.5 });
 stats.forEach(s => observer.observe(s));
-
-// 2. Bug Smasher Game
-const startBtn = document.getElementById('start-game-btn');
-const board = document.getElementById('score-board');
-const msg = document.getElementById('game-msg');
-const container = document.getElementById('game-container');
-let score = 0, health = 100, gameActive = false, bugInterval;
-
-startBtn.addEventListener('click', () => {
-    gameActive = true; score = 0; health = 100;
-    startBtn.style.display = 'none';
-    msg.innerText = "SQUASH THE BUGS!";
-    bugInterval = setInterval(() => {
-        if (!gameActive) return;
-        const bug = document.createElement('div');
-        bug.className = 'bug'; bug.innerHTML = '🐛';
-        bug.style.left = Math.random() * (container.offsetWidth - 30) + 'px';
-        bug.style.top = Math.random() * (container.offsetHeight - 50) + 'px';
-        bug.onclick = () => { score++; bug.remove(); board.innerText = `System Health: ${health}% | Bugs Resolved: ${score}`; };
-        container.appendChild(bug);
-        setTimeout(() => { if (bug.parentNode) { bug.remove(); health -= 20; board.innerText = `System Health: ${health}% | Bugs Resolved: ${score}`; if (health <= 0) endGame(); } }, 1500);
-    }, 800);
-});
-
-function endGame() {
-    gameActive = false; clearInterval(bugInterval);
-    msg.innerText = `SEV 2! You resolved ${score} bugs.`;
-    startBtn.style.display = 'inline-block'; startBtn.innerText = 'Restart Shift';
-}

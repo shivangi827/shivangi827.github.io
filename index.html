@@ -9,124 +9,153 @@
 </head>
 <body>
 
-<header>
-    <div class="hero-content">
-        <h2 style="color: var(--accent); font-family: monospace;">Hi, my name is</h2>
-        <h1 class="glitch" data-text="Shivangi Vyas">Shivangi Vyas</h1>
-        <h1 style="color: var(--text-dim); font-size: clamp(25px, 5vw, 50px);">Building at $1B+ Scale.</h1>
-        <p class="hero-p">
-            I’m a <strong>Software Engineer</strong> at <strong>Amazon</strong> specializing in scalable, multi-tenant platforms. I architect systems that drive hundreds of millions in business impact through technical leadership and rapid execution.
-        </p>
-        <div>
-            <a href="mailto:shivangivyas.278@gmail.com" class="btn">Get In Touch</a>
-            <a href="https://linkedin.com/in/vyas-shivangi" class="btn" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+<nav class="navbar">
+    <div class="nav-container">
+        <span class="nav-logo glitch" data-text="SV">SV</span>
+        <div class="nav-links">
+            <button onclick="showSection('portfolio')" class="nav-btn active" id="nav-portfolio">Portfolio</button>
+            <button onclick="showSection('games')" class="nav-btn" id="nav-games">Games</button>
         </div>
     </div>
-    <div class="hero-image">
-        <div class="img-glow"></div>
-        <img src="profile-pic.jpeg" alt="Shivangi Vyas" class="profile-img">
+</nav>
+
+<main id="portfolio-view" class="tab-content active">
+    <header class="hero">
+        <div class="hero-content">
+            <h2 class="mono-text">Hi, my name is</h2>
+            <h1 class="glitch" data-text="Shivangi Vyas">Shivangi Vyas</h1>
+            <h1 class="sub-hero">Building at $1B+ Scale.</h1>
+            <p class="hero-p">
+                I’m a <strong>Software Engineer</strong> at <strong>Amazon</strong> specializing in scalable, multi-tenant platforms. I architect systems that drive hundreds of millions in business impact through technical leadership and rapid execution.
+            </p>
+            <div class="hero-btns">
+                <a href="mailto:shivangivyas.278@gmail.com" class="btn">Get In Touch</a>
+                <a href="https://linkedin.com/in/vyas-shivangi" class="btn" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="img-glow"></div>
+            <img src="profile-pic.jpeg" alt="Shivangi Vyas" class="profile-img">
+        </div>
+    </header>
+
+    <div class="container">
+        <section id="impact">
+            <h3 class="section-title">High-Level Impact</h3>
+            <div class="impact-grid">
+                <div class="card flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <span class="stat" data-target="454">$0M+</span>
+                            <p>Annual free cash flow generated via large-scale automation platforms.</p>
+                            <small class="hint">(Click to flip)</small>
+                        </div>
+                        <div class="card-back">
+                            <h4>Product Architecture</h4>
+                            <ul>
+                                <li>Led requirement research to ensure product-market fit.</li>
+                                <li>Designed end-to-end SPA with reverse-proxy architecture.</li>
+                                <li>Implemented OpenSearch indexing for data deduplication.</li>
+                                <li>Influenced API schemas and authored on-call SOP runbooks.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <span class="stat" data-target="1">$0B+</span>
+                            <p>Order-processing operations supported by the DCoDE vision.</p>
+                            <small class="hint">(Click to flip)</small>
+                        </div>
+                        <div class="card-back">
+                            <h4>Strategic Leadership</h4>
+                            <ul>
+                                <li>Documented 100+ use cases to pivot team to <strong>DCoDE</strong> platform vision.</li>
+                                <li>Enabled team scaling from 6 to 16 engineers via architectural clarity.</li>
+                                <li>Led growth conversations with stakeholders at <strong>Meta, Xbox, and Apple</strong>.</li>
+                                <li>Rebranded team and presented at org onsite for 100+ people.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <span class="stat" data-target="80">0%</span>
+                            <p>Reduction in API integration time via normalization strategies.</p>
+                            <small class="hint">(Click to flip)</small>
+                        </div>
+                        <div class="card-back">
+                            <h4>Cloud Architecture</h4>
+                            <ul>
+                                <li><strong>Stack:</strong> Fargate, DynamoDB, S3, KMS, Secrets Manager.</li>
+                                <li>Brought integration time down from <strong>8 weeks to 1 week</strong>.</li>
+                                <li>Contributed to initiatives driving <strong>$232M+ in OPS</strong>.</li>
+                                <li>Implemented secure data handling using <strong>KMS</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h3 class="section-title">Career Path</h3>
+            <div class="experience-item">
+                <h4 class="exp-title">Software Development Engineer II <span style="color: var(--accent);">@ Amazon</span></h4>
+                <p class="mono-date">Feb 2022 — Present</p>
+                <ul>
+                    <li><strong>Architectural Leadership:</strong> Reframed a legacy migration into a multi-tenant NAWS platform strategy, supporting $1B+ in order-processing OPS.</li>
+                    <li><strong>Global Scale:</strong> Led end-to-end implementation of global notification systems for 30+ marketplaces.</li>
+                    <li><strong>AI Innovation:</strong> Pioneered an AI-driven on-call agent to automate ticket triage, reducing team burden by 25%.</li>
+                    <li><strong>Technical Ownership:</strong> Served as <strong>Code Review Bar Raiser</strong> and mentor to junior engineers.</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <h4 class="exp-title">Software Engineer <span style="color: var(--accent);">@ Goldman Sachs</span></h4>
+                <p class="mono-date">Feb 2021 — Feb 2022</p>
+                <ul>
+                    <li><strong>Cybersecurity Automation:</strong> Automated cyber intel collection via Phantom workflows, resulting in an <strong>80% reduction</strong> in analysis time.</li>
+                    <li><strong>Threat Mitigation:</strong> Integrated complex APIs to auto-close threat tickets and implemented global mitigations.</li>
+                    <li><strong>System Reliability:</strong> Developed critical infrastructure for real-time threat detection and security alerting.</li>
+                </ul>
+            </div>
+        </section>
     </div>
-</header>
+</main>
 
-<div class="container">
-    <section id="impact">
-        <h3 class="section-title">High-Level Impact</h3>
-        <div class="impact-grid">
-            <div class="card flip-card" onclick="this.classList.toggle('flipped')">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <span class="stat" data-target="454">$0M+</span>
-                        <p>Annual free cash flow generated via large-scale automation platforms.</p>
-                        <small class="flip-hint">(Click to flip)</small>
-                    </div>
-                    <div class="card-back">
-                        <h4>Product Architecture</h4>
-                        <ul>
-                            <li>Led requirement research to ensure product-market fit.</li>
-                            <li>Designed end-to-end SPA with reverse-proxy architecture.</li>
-                            <li>Implemented OpenSearch indexing for data deduplication.</li>
-                            <li>Influenced API schemas and authored on-call SOP runbooks.</li>
-                        </ul>
-                    </div>
+<main id="games-view" class="tab-content">
+    <div class="container">
+        <h3 class="section-title">Developer Playground</h3>
+        <div class="games-grid">
+            <div class="game-card">
+                <h4>Rock Paper Scissors</h4>
+                <div id="rps-display" class="game-display">Choose your move!</div>
+                <div class="rps-btns">
+                    <button class="btn" onclick="playRPS('rock')">Rock</button>
+                    <button class="btn" onclick="playRPS('paper')">Paper</button>
+                    <button class="btn" onclick="playRPS('scissors')">Scissors</button>
                 </div>
+                <p id="rps-result"></p>
             </div>
-
-            <div class="card flip-card" onclick="this.classList.toggle('flipped')">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <span class="stat" data-target="1">$0B+</span>
-                        <p>Order-processing operations supported by the DCoDE vision.</p>
-                        <small class="flip-hint">(Click to flip)</small>
-                    </div>
-                    <div class="card-back">
-                        <h4>Strategic Leadership</h4>
-                        <ul>
-                            <li>Documented 100+ use cases to pivot team from migration to the <strong>DCoDE</strong> platform vision.</li>
-                            <li>Enabled team scaling from 6 to 16 engineers via architectural clarity.</li>
-                            <li>Led growth conversations with stakeholders at <strong>Meta, Xbox, and Apple</strong>.</li>
-                            <li>Rebranded the team and presented vision at an org onsite of 100+ people.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card flip-card" onclick="this.classList.toggle('flipped')">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <span class="stat" data-target="80">0%</span>
-                        <p>Reduction in API integration time via normalization strategies.</p>
-                        <small class="flip-hint">(Click to flip)</small>
-                    </div>
-                    <div class="card-back">
-                        <h4>Cloud Architecture & Design</h4>
-                        <ul>
-                            <li><strong>Stack:</strong> AWS Fargate, DynamoDB, S3, KMS, Secrets Manager.</li>
-                            <li>Brought integration lead time down from <strong>8 weeks to 1 week</strong>.</li>
-                            <li>Contributed to architectural initiatives driving <strong>$232M+ in OPS</strong>.</li>
-                            <li>Implemented secure data handling using <strong>KMS</strong> and <strong>Secrets Manager</strong> for sensitive vendor credentials.</li>
-                        </ul>
-                    </div>
+            
+            <div class="game-card">
+                <h4>On-Call Simulator</h4>
+                <div id="game-container">
+                    <div id="score-board">Health: 100% | Bugs: 0</div>
+                    <button id="start-game-btn" class="btn">Start Shift</button>
+                    <p id="game-msg">A SEV-2 has occurred! Don't let the system crash.</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</main>
 
-    <section id="experience">
-        <h3 class="section-title">Career Path</h3>
-        
-        <div class="experience-item">
-            <h4 style="margin: 0; font-size: 1.4rem;">Software Development Engineer II <span style="color: var(--accent);">@ Amazon</span></h4>
-            <p style="font-family: monospace; font-size: 0.9rem; color: var(--text-dim); margin-top: 5px;">Feb 2022 — Present</p>
-            <ul>
-                <li><strong>Architectural Leadership:</strong> Reframed a legacy migration into a multi-tenant NAWS platform strategy, reducing projected operational overhead by 50% and supporting $1B+ in order-processing OPS.</li>
-                <li><strong>Global Scale:</strong> Led end-to-end implementation of a global notification system for 30+ marketplaces, architected for rapid regional scaling.</li>
-                <li><strong>AI Innovation:</strong> Pioneered an AI-driven on-call agent to automate ticket triage, reducing team burden by 25%.</li>
-                <li><strong>Technical Ownership:</strong> Served as <strong>Code Review Bar Raiser</strong> and mentor to junior engineers.</li>
-            </ul>
-        </div>
-
-        <div class="experience-item">
-            <h4 style="margin: 0; font-size: 1.4rem;">Software Engineer <span style="color: var(--accent);">@ Goldman Sachs</span></h4>
-            <p style="font-family: monospace; font-size: 0.9rem; color: var(--text-dim); margin-top: 5px;">Feb 2021 — Feb 2022</p>
-            <ul>
-                <li><strong>Cybersecurity Automation:</strong> Automated cyber intel collection via Phantom workflows, resulting in an <strong>80% reduction</strong> in analysis time and a 50% increase in response efficiency.</li>
-                <li><strong>Threat Mitigation:</strong> Integrated complex APIs to auto-close threat tickets and implemented global mitigations for internal and external threats.</li>
-                <li><strong>System Reliability:</strong> Developed and maintained critical infrastructure for real-time threat detection and security alerting.</li>
-            </ul>
-        </div>
-    </section>
-    
-    <section id="interactive">
-        <h3 class="section-title">On-Call Simulator</h3>
-        <div id="game-container">
-            <div id="score-board">System Health: 100% | Bugs Resolved: 0</div>
-            <button id="start-game-btn" class="btn">Start On-Call Shift</button>
-            <p id="game-msg">A SEV-2 has occurred! Squash the bugs before the system crashes.</p>
-        </div>
-    </section>
-</div>
-
-<footer style="text-align: center; padding: 60px 20px; color: var(--text-dim); font-family: monospace; font-size: 0.8rem;">
+<footer class="footer">
     <p>Designed & Built by Shivangi Vyas © 2026</p>
 </footer>
 
