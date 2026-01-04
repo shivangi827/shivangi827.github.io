@@ -105,73 +105,67 @@ function playRPS(p) {
         document.getElementById('ttt-status').innerText = "Your turn (X)";
     }
 
-    // --- SNAKE ---
-const cvs = document.getElementById("snakeGame");
-if (cvs) {
-    const ctx = cvs.getContext("2d");
-    let snk = [{x:10, y:10}], fd = {x:5, y:5}, dx=1, dy=0;
-    
-    window.addEventListener("keydown", e => {
-        if(e.key === "ArrowUp" && dy === 0) { dx=0; dy=-1; }
-        if(e.key === "ArrowDown" && dy === 0) { dx=0; dy=1; }
-        if(e.key === "ArrowLeft" && dx === 0) { dx=-1; dy=0; }
-        if(e.key === "ArrowRight" && dx === 0) { dx=1; dy=0; }
+    // --- RETRO SNAKE ---
+    let snake, food, dx, dy, score, gameInterval;
+    const canvas = document.getElementById('snakeGame');
+    const ctx = canvas ? canvas.getContext('2d') : null;
+
+    function startSnake() {
+        clearInterval(gameInterval);
+        snake = [{x: 10, y: 10}];
+        food = {x: 5, y: 5};
+        dx = 1; dy = 0; score = 0;
+        gameInterval = setInterval(gameLoop, 100);
+    }
+
+    function gameLoop() {
+        const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+        if (head.x < 0 || head.x >= 30 || head.y < 0 || head.y >= 30 || snake.some(s => s.x === head.x && s.y === head.y)) {
+            clearInterval(gameInterval);
+            alert("Game Over!");
+            return;
+        }
+        snake.unshift(head);
+        if (head.x === food.x && head.y === food.y) {
+            score += 10;
+            document.getElementById('snake-score').innerText = `Score: ${score}`;
+            food = {x: Math.floor(Math.random()*30), y: Math.floor(Math.random()*30)};
+        } else { snake.pop(); }
+        
+        ctx.fillStyle = "#0a192f"; ctx.fillRect(0,0,300,300);
+        ctx.fillStyle = "#64ffda"; snake.forEach(s => ctx.fillRect(s.x*10, s.y*10, 9, 9));
+        ctx.fillStyle = "#ff4d4d"; ctx.fillRect(food.x*10, food.y*10, 9, 9);
+    }
+    // --- ON-CALL SIMULATOR ---
+    let health = 100, resolved = 0, onCallActive = false;
+    function startOnCall() {
+        onCallActive = true; health = 100; resolved = 0;
+        spawnBug();
+    }
+    function spawnBug() {
+        if (!onCallActive || health <= 0) return;
+        const bug = document.createElement('div');
+        bug.innerHTML = "🐛";
+        bug.style.cssText = `position:absolute; left:${Math.random()*80}%; top:${Math.random()*80}%; cursor:pointer; color:#ff4d4d; font-weight:bold;`;
+        bug.onclick = () => { resolved++; bug.remove(); updateUI(); };
+        document.getElementById('game-container').appendChild(bug);
+        setTimeout(() => { if(bug.parentNode) { health -= 20; bug.remove(); updateUI(); } }, 2000);
+        setTimeout(spawnBug, 1200);
+    }
+    function updateUI() {
+        document.getElementById('score-board').innerText = `System Health: ${health}% | Resolved: ${resolved}`;
+        if(health <= 0) { onCallActive = false; alert("Service Down! Resolved: " + resolved); }
+    }
+
+    // --- INITIALIZATION ---
+    window.addEventListener('load', () => {
+        initCounters();
+        document.getElementById('start-snake')?.addEventListener('click', startSnake);
+        document.getElementById('start-game-btn')?.addEventListener('click', startOnCall);
+        window.addEventListener('keydown', e => {
+            if (e.key === "ArrowUp" && dy === 0) { dx = 0; dy = -1; }
+            if (e.key === "ArrowDown" && dy === 0) { dx = 0; dy = 1; }
+            if (e.key === "ArrowLeft" && dx === 0) { dx = -1; dy = 0; }
+            if (e.key === "ArrowRight" && dx === 0) { dx = 1; dy = 0; }
+        });
     });
-
-    document.getElementById('start-snake').onclick = () => {
-        const game = setInterval(() => {
-            let h = {x: snk[0].x + dx, y: snk[0].y + dy};
-            if (h.x<0 || h.x>19 || h.y<0 || h.y>19) {
-                clearInterval(game); alert("Game Over!"); return;
-            }
-            snk.unshift(h);
-            if(h.x === fd.x && h.y === fd.y) {
-                fd = {x: Math.floor(Math.random()*20), y: Math.floor(Math.random()*20)};
-                document.getElementById('snake-score').innerText = `Score: ${snk.length - 1}`;
-            } else {
-                snk.pop();
-            }
-            ctx.fillStyle = "#020c1b"; ctx.fillRect(0,0,300,300);
-            ctx.fillStyle = "#64ffda"; snk.forEach(s => ctx.fillRect(s.x*15, s.y*15, 14, 14));
-            ctx.fillStyle = "red"; ctx.fillRect(fd.x*15, fd.y*15, 14, 14);
-        }, 150);
-    };
-}
-
-// --- ON-CALL SIMULATOR ---
-let health = 100, bugsCount = 0;
-const startOnCall = document.getElementById('start-game-btn');
-if (startOnCall) {
-    startOnCall.onclick = () => {
-        startOnCall.style.display = 'none';
-        const gameInterval = setInterval(() => {
-            if (health <= 0) {
-                clearInterval(gameInterval);
-                alert(`System Crash! You resolved ${bugsCount} bugs.`);
-                location.reload();
-                return;
-            }
-            const bug = document.createElement('div');
-            bug.className = 'bug'; 
-            bug.innerHTML = '🐛';
-            bug.style.left = Math.random() * 80 + '%';
-            bug.style.top = Math.random() * 80 + '%';
-            bug.style.position = 'absolute';
-            bug.style.cursor = 'pointer';
-
-            bug.onclick = () => {
-                bugsCount++;
-                bug.remove();
-                document.getElementById('score-board').innerText = `System Health: ${health}% | Bugs Resolved: ${bugsCount}`;
-            };
-            document.getElementById('game-container').appendChild(bug);
-            setTimeout(() => {
-                if (bug.parentElement) {
-                    health -= 10;
-                    bug.remove();
-                    document.getElementById('score-board').innerText = `System Health: ${health}% | Bugs Resolved: ${bugsCount}`;
-                }
-            }, 2000);
-        }, 1000);
-    };
-}
