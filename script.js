@@ -5,7 +5,7 @@ function showSection(sectionId) {
     document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
     document.getElementById('nav-' + sectionId).classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+}✌️
 
 // --- STAT COUNTERS ---
 const stats = document.querySelectorAll('.stat');
@@ -36,12 +36,12 @@ stats.forEach(s => observer.observe(s));
 
 // --- RPS GAME ---
 function playRPS(p) {
-    const choices = ['rock', 'paper', 'scissors'];
+    const choices = ['👊', '🖐', '✌️'];
     const b = choices[Math.floor(Math.random() * 3)];
     const res = document.getElementById('rps-result');
-    document.getElementById('rps-display').innerText = `You: ${p} vs Bot: ${b}`;
+    document.getElementById('rps-display').innerText = `You: ${p} vs Shivangi: ${b}`;
     if (p === b) res.innerText = "Tie!";
-    else if ((p === 'rock' && b === 'scissors') || (p === 'paper' && b === 'rock') || (p === 'scissors' && b === 'paper')) {
+    else if ((p === '👊' && b === '✌️') || (p === '🖐' && b === '👊') || (p === '✌️' && b === '🖐')) {
         res.innerText = "Win! 🎉";
     } else {
         res.innerText = "Loss! 💀";
