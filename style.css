@@ -31,14 +31,14 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
 /* --- TAB CONTROL --- */
 .tab-content { 
     display: none; 
-    padding-top: 70px; 
-    min-height: 100vh; 
-    position: relative;
-    z-index: 1;
+    visibility: hidden; 
+    pointer-events: none; /* This makes it "click-through" when hidden */
 }
+
 .tab-content.active { 
     display: block; 
-    z-index: 10; /* Brings active tab to front for clicks */
+    visibility: visible; 
+    pointer-events: auto; /* This enables clicking when active */
 }
 .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
 
