@@ -69,8 +69,9 @@ function playRPS(p) {
     } else {
         res.innerText = "Loss! 💀";
     }
+}
 
-    // TIC-TAC-TOE
+// TIC-TAC-TOE
     let board = ["", "", "", "", "", "", "", "", ""];
     function makeMove(i) {
         if (board[i] === "") {
@@ -103,4 +104,3 @@ function playRPS(p) {
         Array.from(document.getElementsByClassName('cell')).forEach(c => c.innerText = "");
         document.getElementById('ttt-status').innerText = "Your turn (X)";
     }
-}
