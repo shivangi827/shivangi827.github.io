@@ -1,18 +1,24 @@
 // --- SECTION SWITCHER ---
 function showSection(sectionId) {
+    // Hide all tabs
     document.querySelectorAll('.tab-content').forEach(tab => {
         tab.classList.remove('active');
-        tab.style.display = 'none'; // Explicitly hide for mobile
+        tab.style.display = 'none';
     });
     
+    // Show the selected tab
     const activeSection = document.getElementById(sectionId + '-view');
-    activeSection.classList.add('active');
-    activeSection.style.display = 'block'; // Explicitly show for mobile
+    if (activeSection) {
+        activeSection.classList.add('active');
+        activeSection.style.display = 'block';
+    }
 
+    // Update nav button states
     document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-    document.getElementById('nav-' + sectionId).classList.add('active');
+    const activeBtn = document.getElementById('nav-' + sectionId);
+    if (activeBtn) activeBtn.classList.add('active');
     
-    window.scrollTo({ top: 0, behavior: 'instant' }); 
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // --- STAT COUNTERS ---
@@ -139,7 +145,6 @@ if (startOnCall) {
             bug.className = 'bug'; bug.innerHTML = '🐛';
             bug.style.left = Math.random() * 80 + '%';
             bug.style.top = Math.random() * 80 + '%';
-            bug.style.position = 'absolute';
             bug.onclick = () => {
                 bugs++;
                 bug.remove();
