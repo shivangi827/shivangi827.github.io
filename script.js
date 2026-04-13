@@ -49,11 +49,6 @@ function initCounters() {
     stats.forEach(s => observer.observe(s));
 }
 
-// Ensure the code runs ONLY after the page is fully loaded
-window.addEventListener('load', () => {
-    initCounters();
-});
-
 // --- RPS GAME ---
 function playRPS(p) {
     const choices = ['👊', '🖐', '✌️'];

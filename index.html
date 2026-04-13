@@ -3,7 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shivangi Vyas | Senior Software Engineer</title>
+    <title>Shivangi Vyas | Senior Software Engineer @ Amazon</title>
+    <meta name="description" content="Shivangi Vyas — Software Engineer at Amazon. I architect multi-tenant platforms operating at $1B+ scale, supporting 30+ marketplaces and driving hundreds of millions in business impact.">
+    <meta name="author" content="Shivangi Vyas">
+    <meta name="keywords" content="Shivangi Vyas, Software Engineer, Amazon, SDE II, AWS, Distributed Systems, Multi-tenant Platforms">
+    <meta property="og:title" content="Shivangi Vyas | Senior Software Engineer @ Amazon">
+    <meta property="og:description" content="Architecting multi-tenant platforms at $1B+ scale. SDE II at Amazon, ex-Goldman Sachs.">
+    <meta property="og:image" content="https://shivangi827.github.io/profile-pic.jpeg">
+    <meta property="og:url" content="https://shivangi827.github.io">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" type="image/jpeg" href="profile-pic.jpeg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -14,6 +24,7 @@
         <span class="nav-logo glitch" data-text="SV">SV</span>
         <div class="nav-links">
             <button onclick="showSection('portfolio')" class="nav-btn active" id="nav-portfolio">Portfolio</button>
+            <button onclick="showSection('projects')" class="nav-btn" id="nav-projects">Projects</button>
             <button onclick="showSection('games')" class="nav-btn" id="nav-games">Games</button>
         </div>
     </div>
@@ -28,9 +39,10 @@
             <p class="hero-p">
                 I’m a <strong>Software Engineer</strong> at <strong>Amazon</strong> specializing in scalable, multi-tenant platforms. I architect systems that drive hundreds of millions in business impact through technical leadership and rapid execution.
             </p>
-            <div>
+            <div class="hero-btns">
                 <a href="mailto:shivangivyas.278@gmail.com" class="btn">Get In Touch</a>
-                <a href="https://linkedin.com/in/vyas-shivangi" class="btn" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="https://linkedin.com/in/vyas-shivangi" class="btn" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="https://github.com/shivangi827" class="btn" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
             </div>
         </div>
         <div class="hero-image">
@@ -128,10 +140,49 @@
     </div>
 </main>
 
+<main id="projects-view" class="tab-content">
+    <div class="container">
+        <h3 class="section-title">Side Projects</h3>
+        <div class="projects-grid">
+            <a href="https://imposter-game-mdye.onrender.com/" class="project-card" target="_blank" rel="noopener">
+                <div class="project-icon">🕵️</div>
+                <h4>Imposter — Multiplayer Party Game</h4>
+                <p class="project-tagline">A real-time, browser-based social deduction game inspired by Among Us — built and shipped solo.</p>
+                <ul class="project-bullets">
+                    <li><strong>Real-time:</strong> WebSocket-driven game state synced across all players in a room.</li>
+                    <li><strong>Zero-install:</strong> Players join with a room code — no app, no signup.</li>
+                    <li><strong>Stack:</strong> Node.js backend, deployed on Render with auto-scaling.</li>
+                </ul>
+                <span class="project-link">Play Now <i class="fas fa-external-link-alt"></i></span>
+            </a>
+
+            <a href="https://github.com/shivangi827" class="project-card" target="_blank" rel="noopener">
+                <div class="project-icon">💻</div>
+                <h4>This Portfolio Site</h4>
+                <p class="project-tagline">Hand-written HTML/CSS/JS — no frameworks, no build step, no dependencies beyond a font icon CDN.</p>
+                <ul class="project-bullets">
+                    <li><strong>Vanilla:</strong> Sub-300 lines of CSS + JS combined.</li>
+                    <li><strong>Interactive:</strong> Tab routing, animated counters, four embedded mini-games.</li>
+                    <li><strong>Hosted:</strong> GitHub Pages with custom domain.</li>
+                </ul>
+                <span class="project-link">View Source <i class="fab fa-github"></i></span>
+            </a>
+        </div>
+    </div>
+</main>
+
 <main id="games-view" class="tab-content">
     <div class="container">
         <h3 class="section-title">Developer Playground</h3>
         <div class="games-grid">
+            <div class="game-card featured-game">
+                <div class="featured-badge">⭐ Featured</div>
+                <h4>Imposter — Multiplayer Party Game</h4>
+                <div class="game-display" style="font-size: 3rem; padding: 30px;">🕵️</div>
+                <p style="color: var(--text-dim); margin-bottom: 15px;">A real-time social deduction game built from scratch. Grab some friends and play live.</p>
+                <a href="https://imposter-game-mdye.onrender.com/" class="btn" target="_blank" rel="noopener">Play Now <i class="fas fa-external-link-alt"></i></a>
+            </div>
+
             <div class="game-card">
                 <h4>Rock Paper Scissors</h4>
                 <div id="rps-display" class="game-display">Choose your move!</div>
