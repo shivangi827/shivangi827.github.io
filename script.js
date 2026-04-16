@@ -127,9 +127,9 @@ function playRPS(p) {
             food = {x: Math.floor(Math.random()*30), y: Math.floor(Math.random()*30)};
         } else { snake.pop(); }
         
-        ctx.fillStyle = "#1a1a1a"; ctx.fillRect(0,0,300,300);
-        ctx.fillStyle = "#7d2e3e"; snake.forEach(s => ctx.fillRect(s.x*10, s.y*10, 9, 9));
-        ctx.fillStyle = "#c9a876"; ctx.fillRect(food.x*10, food.y*10, 9, 9);
+        ctx.fillStyle = "#0f0f0f"; ctx.fillRect(0,0,300,300);
+        ctx.fillStyle = "#c9a876"; snake.forEach(s => ctx.fillRect(s.x*10, s.y*10, 9, 9));
+        ctx.fillStyle = "#e8e6e1"; ctx.fillRect(food.x*10, food.y*10, 9, 9);
     }
     // --- ON-CALL SIMULATOR ---
     let health = 100, resolved = 0, onCallActive = false;
