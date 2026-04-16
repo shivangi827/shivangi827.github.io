@@ -28,9 +28,11 @@
         <div class="nav-links">
             <button onclick="showSection('portfolio')" class="nav-btn active" id="nav-portfolio">Portfolio</button>
             <button onclick="showSection('games')" class="nav-btn" id="nav-games">Games</button>
-            <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
-                <i class="fas fa-moon"></i>
-            </button>
+        </div>
+        <div class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" role="switch" aria-label="Toggle dark mode">
+            <i class="fas fa-sun toggle-icon toggle-sun"></i>
+            <i class="fas fa-moon toggle-icon toggle-moon"></i>
+            <span class="toggle-thumb"></span>
         </div>
     </div>
 </nav>
