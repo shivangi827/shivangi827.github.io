@@ -1,23 +1,63 @@
+// --- THEME TOGGLE ---
+function getTheme() {
+    const stored = localStorage.getItem('theme');
+    if (stored) return stored;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function applyTheme(theme) {
+    if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+        document.documentElement.removeAttribute('data-theme');
+    }
+    const btn = document.getElementById('theme-toggle');
+    if (btn) btn.innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+}
+
+function toggleTheme() {
+    const current = getTheme();
+    const next = current === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', next);
+    applyTheme(next);
+}
+
+function snakeColors() {
+    const isDark = document.documentElement.hasAttribute('data-theme');
+    return {
+        bg: isDark ? '#0f0f0f' : '#1c1c1e',
+        snake: isDark ? '#c9a876' : '#b5575a',
+        food: isDark ? '#e8e6e1' : '#e8e4e0'
+    };
+}
+
+// Apply theme immediately to prevent flash
+applyTheme(getTheme());
+
+// Listen for system preference changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+        applyTheme(e.matches ? 'dark' : 'light');
+    }
+});
+
 // --- SECTION SWITCHER ---
 function showSection(sectionId) {
-    // Hide all tabs
     document.querySelectorAll('.tab-content').forEach(tab => {
         tab.classList.remove('active');
         tab.style.display = 'none';
     });
-    
-    // Show selected tab
+
     const activeSection = document.getElementById(sectionId + '-view');
     if (activeSection) {
         activeSection.classList.add('active');
         activeSection.style.display = 'block';
     }
 
-    // Update buttons
     document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
     const activeBtn = document.getElementById('nav-' + sectionId);
     if (activeBtn) activeBtn.classList.add('active');
-    
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -51,18 +91,18 @@ function initCounters() {
 
 // --- RPS GAME ---
 function playRPS(p) {
-    const choices = ['👊', '🖐', '✌️'];
+    const choices = ['\u{1F44A}', '\u{1F590}', '\u270C\uFE0F'];
     const b = choices[Math.floor(Math.random() * 3)];
     const res = document.getElementById('rps-result');
     const display = document.getElementById('rps-display');
-    
+
     if(display) display.innerText = `You: ${p} vs Shivangi: ${b}`;
-    
+
     if (p === b) res.innerText = "Tie!";
-    else if ((p === '👊' && b === '✌️') || (p === '🖐' && b === '👊') || (p === '✌️' && b === '🖐')) {
-        res.innerText = "Win! 🎉";
+    else if ((p === '\u{1F44A}' && b === '\u270C\uFE0F') || (p === '\u{1F590}' && b === '\u{1F44A}') || (p === '\u270C\uFE0F' && b === '\u{1F590}')) {
+        res.innerText = "Win! \u{1F389}";
     } else {
-        res.innerText = "Loss! 💀";
+        res.innerText = "Loss! \u{1F480}";
     }
 }
 
@@ -70,7 +110,7 @@ function playRPS(p) {
     let board = ["", "", "", "", "", "", "", "", ""];
     function makeMove(i) {
         if (board[i] === "") {
-            board[i] = "X"; 
+            board[i] = "X";
             document.getElementsByClassName('cell')[i].innerText = "X";
             result = checkWinner()
             result ? null : setTimeout(botMove, 500);
@@ -80,7 +120,7 @@ function playRPS(p) {
         let empty = board.map((v, i) => v === "" ? i : null).filter(v => v !== null);
         if (empty.length) {
             let m = empty[Math.floor(Math.random() * empty.length)];
-            board[m] = "O"; 
+            board[m] = "O";
             document.getElementsByClassName('cell')[m].innerText = "O";
             checkWinner();
         }
@@ -126,10 +166,11 @@ function playRPS(p) {
             document.getElementById('snake-score').innerText = `Score: ${score}`;
             food = {x: Math.floor(Math.random()*30), y: Math.floor(Math.random()*30)};
         } else { snake.pop(); }
-        
-        ctx.fillStyle = "#1c1c1e"; ctx.fillRect(0,0,300,300);
-        ctx.fillStyle = "#b5575a"; snake.forEach(s => ctx.fillRect(s.x*10, s.y*10, 9, 9));
-        ctx.fillStyle = "#e8e4e0"; ctx.fillRect(food.x*10, food.y*10, 9, 9);
+
+        const c = snakeColors();
+        ctx.fillStyle = c.bg; ctx.fillRect(0,0,300,300);
+        ctx.fillStyle = c.snake; snake.forEach(s => ctx.fillRect(s.x*10, s.y*10, 9, 9));
+        ctx.fillStyle = c.food; ctx.fillRect(food.x*10, food.y*10, 9, 9);
     }
     // --- ON-CALL SIMULATOR ---
     let health = 100, resolved = 0, onCallActive = false;
@@ -140,7 +181,7 @@ function playRPS(p) {
     function spawnBug() {
         if (!onCallActive || health <= 0) return;
         const bug = document.createElement('div');
-        bug.innerHTML = "🐛";
+        bug.innerHTML = "\u{1F41B}";
         bug.style.cssText = `position:absolute; left:${Math.random()*80}%; top:${Math.random()*80}%; cursor:pointer; color:#ff4d4d; font-weight:bold;`;
         bug.onclick = () => { resolved++; bug.remove(); updateUI(); };
         document.getElementById('game-container').appendChild(bug);
