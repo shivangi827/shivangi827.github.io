@@ -194,6 +194,7 @@ function playRPS(p) {
     // --- INITIALIZATION ---
     window.addEventListener('load', () => {
         initCounters();
+        document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
         document.getElementById('start-snake')?.addEventListener('click', startSnake);
         document.getElementById('start-game-btn')?.addEventListener('click', startOnCall);
         window.addEventListener('keydown', e => {
