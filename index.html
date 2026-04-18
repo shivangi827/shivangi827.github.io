@@ -178,64 +178,6 @@
     </div>
 </main>
 
-<main id="games-view" class="tab-content">
-    <div class="container">
-        <h3 class="section-title">Developer Playground</h3>
-        <div class="games-grid">
-            <div class="game-card featured-game">
-                <div class="featured-badge">⭐ Featured</div>
-                <h4>Imposter — Multiplayer Party Game</h4>
-                <div class="game-display" style="font-size: 3rem; padding: 30px;">🕵️</div>
-                <p style="color: var(--text-dim); margin-bottom: 15px;">A real-time social deduction game built from scratch. Grab some friends and play live.</p>
-                <a href="https://imposter-game-mdye.onrender.com/" class="btn" target="_blank" rel="noopener">Play Now <i class="fas fa-external-link-alt"></i></a>
-            </div>
-
-            <div class="game-card">
-                <h4>Rock Paper Scissors</h4>
-                <div id="rps-display" class="game-display">Choose your move!</div>
-                <div class="rps-btns">
-                    <button class="btn" onclick="playRPS('👊')">Rock👊</button>
-                    <button class="btn" onclick="playRPS('🖐')">Paper🖐</button>
-                    <button class="btn" onclick="playRPS('✌️')">Scissors✌️</button>
-                </div>
-                <p id="rps-result"></p>
-            </div>
-            
-            <div class="game-card">
-                <h4>Tic-Tac-Toe</h4>
-                <div id="ttt-grid" class="ttt-grid">
-                    <div class="cell" onclick="makeMove(0)"></div>
-                    <div class="cell" onclick="makeMove(1)"></div>
-                    <div class="cell" onclick="makeMove(2)"></div>
-                    <div class="cell" onclick="makeMove(3)"></div>
-                    <div class="cell" onclick="makeMove(4)"></div>
-                    <div class="cell" onclick="makeMove(5)"></div>
-                    <div class="cell" onclick="makeMove(6)"></div>
-                    <div class="cell" onclick="makeMove(7)"></div>
-                    <div class="cell" onclick="makeMove(8)"></div>
-                </div>
-                <p id="ttt-status">Your turn (X)</p>
-                <button class="btn" onclick="resetTTT()">Reset</button>
-            </div>
-
-            <div class="game-card">
-                <h4>Retro Snake</h4>
-                <canvas id="snakeGame" width="300" height="300"></canvas>
-                <button id="start-snake" class="btn">Start Snake</button>
-                <p id="snake-score">Score: 0</p>
-            </div>
-
-            <div class="game-card">
-                <h4>On-Call Simulator</h4>
-                <div id="game-container">
-                    <div id="score-board">System Health: 100% | Bugs Resolved: 0</div>
-                    <button id="start-game-btn" class="btn">Start On-Call Shift</button>
-                    <p id="game-msg">A SEV-2 has occurred! Squash the bugs!</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
 
 <footer class="footer">
     <p>Designed & Built by Shivangi Vyas © 2026</p>
